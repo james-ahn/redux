@@ -33,6 +33,22 @@ Action[
 - 순수하지 않은 API 호출을 하지 말아야 한다. (Date 및 Math 의 함수 등)
 
 
+## set the react environment 
+```
+sudo npm install -g create-react-app
+create-react-app my-app
+
+- for customizing
+npm run eject (node_modules/react-scripts => root)
+```
+
+
+## install dependency modules for redux
+```
+npm install --save redux react-redux
+``` 
+
+
 
 Reference
 https://velopert.com/
