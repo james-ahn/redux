@@ -1,93 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import registerServiceWorker from './registerServiceWorker';
 import { createStore } from 'redux';
-
-/*
- * Action
- */
-const INCREMENT = "INCREMENT";
-
-function increase(diff) {
-    return {
-        type: INCREMENT, //필수적인 필드이며, action 의 형태를 정의해줍니다.
-        addBy: diff
-    };
-}
+import { Provider  } from 'react-redux';
+import App from './components/App';
+import counterApp from './reducers';
 
 
-/*
- * Reducer
- */
-const initialState = {
-    value: 0
-};
 
-const counterReducer = (state = initialState, action) => {
-    switch(action.type) {
-        case INCREMENT:
-            return Object.assign({}, state, {
-                value: state.value + action.addBy
-            });
-        default:
-            return state;
-    }
-}
+const store = createStore(counterApp);
+const appElement = document.getElementById('root');
 
-
-/*
- * Store
- */
-const store = createStore(counterReducer);
-
-
-class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.onClick = this.onClick.bind(this);
-    }
-
-    render() {
-
-        let centerStyle = {
-            position: 'fixed',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            WebkitUserSelect: 'none',
-            MozUserSelect: 'none',
-            MsUserSelect:'none',
-            userSelect: 'none',
-            cursor: 'pointer'
-        };
-
-        return (
-            <div
-                onClick={ this.onClick }
-                style={ centerStyle }
-            >
-
-                <h1> {this.props.store.getState().value} </h1>
-            </div>
-        )
-    }
-
-    onClick() {
-        this.props.store.dispatch(increase(1)); //store.dispatch(ACTION) 상태값을 수정 할 때 사용되는 메소드입니다.
-    }
-}
-
-const render = () => {
-
-    const appElement = document.getElementById('root');
-    ReactDOM.render(
-        <App store={store}/>, // store 를 App 컴포넌트의 props 로 전달해주었습니다.
-        appElement
-    );
-};
-
-store.subscribe(render); // dispatch 메소드가 실행되면 리스너 함수가 실행됩니다. 즉, 데이터에 변동이 있을때마다 리렌더링하도록 설정합니다.
-render();
-
-//ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+//렌더링 될 때 Redux 컴포넌트인 <Provider> 에 store 를 설정해주면 그 하위 컴포넌트들에 따로 parent-child 구조로 전달해주지 않아도 connect 될 때 store에 접근 할 수 있게 해줍니다.
+ReactDOM.render(
+    <Provider store = {store}>
+        <App />
+    </Provider>,
+    appElement
+);

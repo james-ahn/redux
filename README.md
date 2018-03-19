@@ -48,6 +48,33 @@ npm run eject (node_modules/react-scripts => root)
 npm install --save redux react-redux
 ``` 
 
+## make new project
+mkdir actions components reducers && touch actions/index.js components/App.js components/Buttons.js components/Counter.js components/Option.js reducers/index.js
+
+````
+src
+├── actions
+│        └── index.js
+├── components
+│        ├── App.js
+│        ├── Buttons.js
+│        ├── Counter.js
+│        └── Option.js
+├── index.js
+└── reducers
+    └── index.js
+````
+
+
+
+
+
+
+
+
+
+
+
 
 
 Reference
